@@ -42,7 +42,7 @@ li :hover {
     background-color: #2e3c37;
 }
 
-.project-section, .map-section{
+.section, .project-section, .map-section{
     border: 2pt solid #677D6A;
     margin: 2.5%;
     padding: 1%;
