@@ -42,7 +42,7 @@ li :hover {
     background-color: #2e3c37;
 }
 
-.section, .interactive-project-section, .project-section, .map-section{
+.section.interactive-project-section.project-section.map-section{
     border: 2pt solid #677D6A;
     margin: 2.5%;
     padding: 1%;
@@ -74,7 +74,7 @@ img {
     border: none;
 }
 
-.interactive-mini-project-section, .mini-project-section {
+.interactive-mini-project-section.mini-project-section {
     text-align: center;
     border: 2pt solid #677D6A;
     margin-left: 1%;
@@ -94,7 +94,7 @@ img {
     background-color: gainsboro;
   }
 
-.interactive-project-section,.interactive-mini-project-section {
+.interactive-project-section.interactive-mini-project-section {
     display: none;
 }
 
