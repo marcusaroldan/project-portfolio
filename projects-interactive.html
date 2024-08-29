@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Projects - Marcus Roldan</title>
+
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+    <link href="style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="https://github.com/marcusaroldan/" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/marcusaroldan/" target="_blank">LinkedIn</a></li>
+        </ul>
+    </nav>
+
+    <div class="projects", id="map_container">
+        <h3 id="projects-intro-text">Navigate the transit map below to explore my projects! Click on a project to learn more about it! To reset the network, reload the page.</h3>
+        <div class= 'map-section' id="network_map"></div>
+    </div>
+
+    <div class="projects", id="projects-container">
+        <div class="project-section", id="311">
+            <h2>311 Infrastructure Issue Identifier</h2>
+            <img class="project-image", id="311-img", src="media/311-preview.PNG", alt="Preview of the 311 Infrastructure Issue Identifier interface.">
+            <p class="project-description" id="311-desc">The focus of this project is to utilize the vast amount of publicly accessible data to create a geospatial visualization of where pedestrian, bike, and public transit infrastructure encounters the most issues. This is accomplished by classifying Illegal Parking reports made to <a href="https://311.boston.gov/" target="_blank">Boston 311</a>. The main issue with these Illegal Parking reports is that this category encompasses everything from resident-only parking to blocked bus stops and bike lanes.</p>
+            <p class="project-description" id="311-desc">These Illegal Parking reports contain a free-form text description of the issue, from which classifications can be determined. Because of this, the project became a matter of Text Classification, a common task in Natural Language Processing. The first iterations of this project aimed to leverage word embeddings for text classification using the <a href="https://github.com/sebischair/Lbl2Vec">Lbl2Vec</a> model. The report of this strategy can be read <a href="nlpreport.html" target="_blank">here</a>. To summarize, despite promising metrics evaluating the word embeddings and clustering of documents, the actual utility of this iteration of the project was very low.</p>
+            <p class="project-description" id="311-desc">Following a review of this strategy with <a href="https://www.khoury.northeastern.edu/people/amir-tahmasebi/" target="_blank">Professor Amir Tahmasebi</a>, more effective strategies were devised, beginning with classical Machine Learning Text Classification strategies. Utilizing TF-IDF vectorization for word and document representation, various classification and clustering algorithms were tested such as <a href="https://scikit-learn.org/stable/modules/clustering.html#k-means" target="_blank">K-means</a>, <a href="https://scikit-learn.org/stable/modules/clustering.html#hdbscan" target="_blank">HDBSCAN</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html#sklearn.cluster.AgglomerativeClustering" target="_blank">AgglomerativeClustering</a>, and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.FeatureAgglomeration.html#sklearn.cluster.FeatureAgglomeration" target="_blank">FeatureAgglomeration</a>. These strategies yielded less than useful results, with many algorithms making classifications along the lines of street names; and makes, models, or types of vehicles. To combat this, Feature Engineering was explored to amplify and massage the data to yield classifications along infrastructure types through masking and keyword amplification. Despite these efforts, classical Machine Learning strategies were not viable for this project.</p>
+            <p class="project-description" id="311-desc">Finally, a keyword-based classification with fuzzy matching was implemented for this project. The benefits of this strategy are that it mimics the strategy a human would take to make these classifications, it is agnostic to classification structures, and its simplicity means the time to classify large datasets (>25k documents) is low. Without fuzzy matching, this keyword-based classification was able to categorize ~65% of documents with extremely high accuracy (low false-positive rate is another benefit to this strategy).</p>
+            <p class="project-description" id="311-desc">The project repository contains JuPyter notebook files which collect the raw data from the Boston 311 API, classify the data, then process it for visualization, with the rest of the repository dedicated to the visualization of the data.</p>
+            <a class="project-link", id="311-site" href="https://marcusaroldan.github.io/311-infrastructure-issue-identifier/" target="_blank">Interactive Map</a>
+            <a class="project-link", id="311-repo" href="https://github.com/marcusaroldan/311-infrastructure-issue-identifier" target="_blank">GitHub Repository</a>
+        </div>
+        <div class="project-section", id="bicre">
+            <h2>BICRE: Boston Integrated Cycle Route Engine</h2>
+            <img class="project-image", id="bicre-img", src="media/bicre_v1_example.PNG", alt="Preview of the BICREn interface.">
+            <p class="project-description", id="bicre-desc">The Boston Integrated Cycling Route Engine was created to address a problem I have encountered with using Google Maps for navigation. A key part of the Dutch transit system that I experienced was its intermodality. Many people used a combination of biking and transit to get them to and from their destinations. This is a great way to improve the utility of existing transit service, as it solves the issue of first and last mile legs of public transit trips. Due to the nature of public transit, it cannot take every user directly to their destination, but is usually combined with walking to achieve this. If all users walk to a transit station, the <a href="https://www.witpress.com/Secure/elibrary/papers/UT08/UT08017FU1.pdf" target="_blank">catchment area</a> is considerably smaller than if users have the ability to utilize cycling.</p>
+            <p class="project-description" id="bicre-desc">Furthermore, much of the MBTA system is bike-friendly. Bikes are allowed on subways and commuter rail at most times except direct rush hours, and the vast majority of the MBTA’s fleet of buses have bike racks on the front available for riders to store their bikes on. A large pain point of combining cycling and transit is planning the route. Services like Google Maps lack the ability to create combined routes utilizing the two modes of transport. BICRE aims to solve this issue by enhancing the Google Maps service to create integrated cycling and transit routes between two places. More information about this project can be seen on the README of the GitHub repository.</p>
+            <a class="project-link", id="bicre-site" href="">Try BICRE</a>
+            <a class="project-link", id="bicre-repo" href="https://github.com/marcusaroldan/bicre" target="_blank">GitHub Repository</a>
+        </div>
+        <div class="project-section", id="mini-section-container">
+            <div class="mini-project-section", id="mbta-analysis">
+                <h2>MBTA Slow-zones Data Analysis</h2>
+                <img class="project-image", id="mbta-img", src="media/mbta-logo.png", alt="MBTA Logo">
+                <p class="project-description", id="mbta-desc">This data analysis and visualization project focuses on the MBTA’s issues with <a href="https://www.mbta.com/performance-metrics/speed-restrictions" target="_blank">speed restrictions</a> and aims to investigate the impact of slow-zones on system ridership.</p>
+                <a class="project-link", id="mbta-site" href="https://marcusaroldan.github.io/mbta-slow-zones-ridership/" target="_blank">Analysis</a>
+                <a class="project-link", id="mbta-repo" href="https://github.com/marcusaroldan/mbta-slow-zones-ridership" target="_blank">GitHub Repo</a>
+            </div>
+            <div class="mini-project-section", id="rove">
+                <h2>ROVE: Ridership Operations Visualization Engine</h2>
+                <img class="project-image", id="rove-img">
+                <p class="project-description", id="rove-desc"><a href="https://github.com/jtl-transit/rove" target="_blank">ROVE</a> is a tool developed by the MIT Transit Lab for performance analysis of bus transit systems. It uses General Transit Feed Specification (GTFS) data to create interactive visualizations to support the analysis of the effectiveness of bus transit services. The original paper was sent to me by Jeff Rosenblum while I was abroad in the Netherlands studying Sustainable Urban Development and Transportation. Because of my recent experiences both studying and using Dutch bus systems in The Hague, Amsterdam, and Rotterdam, I wanted to compare the data provided by OV (Openbaar Vervoer, Dutch transit authority) to the example systems provided by ROVE (MTA, MBTA, etc.). However, the OV GTFS data was not compatible with the ROVE system.</p>
+                <p class="project-description" id="rove-desc">I endeavored to make slight modifications to the ROVE system to assuage the issues between it and the OV GTFS data. This was my first project in Python, and it was a great introduction to Pythonic development and debugging.</p>
+                <a class="project-link", id="rove-repo" href="https://github.com/marcusaroldan/rove" target="_blank">GitHub Repository</a>
+            </div>
+            <div class="mini-project-section", id="ai-chord-prediction">
+                <h2>Chord Recognition and Progression Predictor</h2>
+                <img class="project-image", id="ai-img", src="media/chromagram.PNG", alt="Sample chromogram of a testing song.">
+                <p class="project-description", id="ai-desc">Using an ensemble approach for chord recognition followed by a Hidden Markov Model for chord prediction, this project applies key AI concepts to music and sound data to create an entertaining model to interpret and predict chord progressions.</p>
+                <a class="project-link", id="ai-report" href="aipaper.html">Report</a>
+                <a class="project-link", id="ai-repo" href="https://github.com/julianwsavini/CS4100_Final" target="_blank">GitHub Repository</a>
+            </div>
+        </div>
+    </div>
+    <script src="model.js"></script>
+</body>
