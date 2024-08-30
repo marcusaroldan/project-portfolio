@@ -75,6 +75,11 @@ function init_network()
             font: {
                 size: 35,
             }
+        },
+        interaction: {
+            dragNodes: false,
+            dragView: false,
+            zoomView: false
         }
     };
 }
