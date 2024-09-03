@@ -14,6 +14,8 @@ const EDGE_SIZE = 15;
 
 function init_network() 
 {    
+    // Maps the node ID to the HTML ID it corresponds to.
+    // For nodes which are a direct link, must have the literal 'link' in the keyname, with the value storing the link address itself
     nodeHTMLID= {
         'threeOneOne': '311',
         'BICRE-OL': 'bicre',
@@ -35,6 +37,8 @@ function init_network()
         'resume-link': 'resume.html',
     };
 
+    // Nodes which are on two or more lines must have a second node with an offset of -30 in the x direction.
+    // These nodes should be denoted with -[line abbreviation] (ex: OL --> Orange Line)
     nodeArray = [
         {id: 'threeOneOne', label: '311 Infra Issue Identifier', color: NODE_COLOR, shape: NODE_SHAPE, size: NODE_SIZE, x: 70, y:-300},
 
@@ -102,7 +106,9 @@ function init_network()
         nodes: nodes,
         edges: edges
     };
+
     options = {
+        // Physics must be false in order for the manual placement of the nodes to take effect.
         physics: false,
         nodes: {
             font: {
@@ -120,9 +126,14 @@ function init_network()
 init_network();
 
 var network = new vis.Network(container, data, options);
+
+// Set the last node description that was visible to the intro as that is the default when the page opens.
 var lastNodeSelectionHTMLElement = document.getElementById('brief-intro');
 
+// Event handler for clicking on a node itself.
+// Uses the map to determine the HTML ID for the node description, then hides the previous node, then shows the currently selected node.
 network.on('selectNode', function(params) {
+    // Make sure we only clicked on a single node
     if (params.nodes.length === 1) {
         lastNodeSelectionHTMLElement.style.display = 'none';
         let selectedNodeID = params.nodes[0];
@@ -141,7 +152,11 @@ network.on('selectNode', function(params) {
     }
 });
 
+
+// Event handler for deselcting a node.
+// Hides the previously selected node.
 network.on('deselectNode', function(params) {
+    // make sure only one node was previously selected
     if (params.previousSelection.nodes.length === 1) {
         lastNodeSelectionHTMLElement.style.display = 'none';
         // document.getElementById('brief-intro').style.display = 'block';
