@@ -1,4 +1,4 @@
-var nodeInfo, nodeArray, edgeArray, container, data, options;
+var nodeHTMLID, nodeArray, edgeArray, container, data, options;
 
 // NODE CONSTANTS
 const NODE_SIZE = 15;
@@ -31,7 +31,8 @@ function init_network()
         'BCU-OLRL': 'BCU',
         'BCU-GL': 'BCU',
         'contact-RL': 'contact-info',
-        'contact-GL': 'contact-info'
+        'contact-GL': 'contact-info',
+        'resume-link': 'resume.html',
     };
 
     nodeArray = [
@@ -64,6 +65,9 @@ function init_network()
 
         {id: 'contact-RL', label: 'Contact Info', color: NODE_COLOR, shape: NODE_SHAPE, size: NODE_SIZE, x: -50, y: 300},
         {id: 'contact-GL', label: '', color: NODE_COLOR, shape: NODE_SHAPE, size: NODE_SIZE, x: -80, y: 300},
+
+        {id: 'resume-link', label: 'Resume', color: NODE_COLOR, shape: NODE_SHAPE, size: NODE_SIZE, x: -50, y: 400}
+
     ];
 
     edgeArray = [
@@ -87,6 +91,7 @@ function init_network()
         {from: 'NL', to: 'BCU-OLRL', color: RL_COLOR, background: {enabled: true, size: EDGE_SIZE, color: RL_COLOR}, smooth: EDGE_SMOOTH},
         {from: 'BCU-OLRL', to: 'career-RL', color: RL_COLOR, background: {enabled: true, size: EDGE_SIZE, color: RL_COLOR}, smooth: EDGE_SMOOTH},
         {from: 'career-RL', to: 'contact-RL', color: RL_COLOR, background: {enabled: true, size: EDGE_SIZE, color: RL_COLOR}, smooth: EDGE_SMOOTH},
+        {from: 'contact-RL', to: 'resume-link', color: RL_COLOR, background: {enabled: true, size: EDGE_SIZE, color: RL_COLOR}, smooth: EDGE_SMOOTH}
     ];
 
     var nodes = new vis.DataSet(nodeArray);
@@ -123,6 +128,12 @@ network.on('selectNode', function(params) {
         let selectedNodeID = params.nodes[0];
         let selectedNodeHTMLID = nodeHTMLID[selectedNodeID];
         let selectedNodeHTML = document.getElementById(selectedNodeHTMLID);
+
+        // catch nodes that are just links
+        if (selectedNodeID.includes('link')) {
+            window.open(selectedNodeHTMLID, '_blank');
+            return;
+        }
 
         selectedNodeHTML.style.display = 'block';
 
